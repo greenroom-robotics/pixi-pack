@@ -8,6 +8,7 @@ use rattler_conda_types::Platform;
 
 use anyhow::Result;
 use pixi_pack::{Config, OutputMode, PackOptions, PixiPackMetadata, pack};
+use rattler_config::locations::{ConfigLayer, ConfigLocation, config_search_paths};
 use rattler_lock::UrlOrPath;
 
 /* -------------------------------------------- CLI -------------------------------------------- */
@@ -68,7 +69,7 @@ struct Cli {
     #[arg(long, requires = "create_executable")]
     pixi_unpack_source: Option<UrlOrPath>,
 
-    /// Rattler config for mirror or S3 configuration.
+    /// Rattler config for mirror, S3 or Azure configuration, layered on top of the global pixi config.
     #[arg(long, short)]
     config: Option<PathBuf>,
 
@@ -157,13 +158,15 @@ async fn main() -> Result<()> {
                 },
             };
 
-            let config = if let Some(config_path) = config {
-                let config = Config::load_from_files(vec![&config_path.clone()])
-                    .map_err(|e| anyhow::anyhow!("Failed to parse config file: {}", e))?;
-                Some(config)
-            } else {
-                None
-            };
+            let locations = config_search_paths("pixi")
+                .into_iter()
+                .filter(|location| location.path.is_file())
+                .chain(config.map(|path| ConfigLocation {
+                    path,
+                    layer: ConfigLayer::Tool,
+                }));
+            let config = Config::load_from_locations(locations)
+                .map_err(|e| anyhow::anyhow!("Failed to parse config file: {}", e))?;
 
             let options = PackOptions {
                 environment,
@@ -177,7 +180,7 @@ async fn main() -> Result<()> {
                 output_mode,
                 pixi_unpack_source,
                 cache_dir: use_cache,
-                config,
+                config: Some(config),
             };
             tracing::debug!("Running pack command with options: {:?}", options);
             pack(options).await?;

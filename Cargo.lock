@@ -308,9 +308,9 @@ dependencies = [
 
 [[package]]
 name = "astral_async_zip"
-version = "0.0.20"
+version = "0.0.21"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "bd939d79959c3f49a648a1d7857d63cc62548725a6b060b8dbf0ea5c92470b63"
+checksum = "13f4a9bc6289d907c8e883d25026a54751d686da9926af271d0fc4cbe58a7f4d"
 dependencies = [
  "async-compression",
  "crc32fast",
@@ -450,16 +450,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "async-spooled-tempfile"
-version = "0.1.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "5dd9c58a1dbecfc23aa470d57e5aff60877ab1b459bf05e60e861dd18fcaa5f5"
-dependencies = [
- "tempfile",
- "tokio",
-]
-
-[[package]]
 name = "async-std"
 version = "1.13.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -500,6 +490,15 @@ dependencies = [
  "proc-macro2",
  "quote",
  "syn 2.0.117",
+]
+
+[[package]]
+name = "asyncband"
+version = "0.7.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "f2d85fd3d291fabcc40c7232c92c280ec1754fd7b5d7ea769f143222143e179a"
+dependencies = [
+ "hashbrown 0.17.1",
 ]
 
 [[package]]
@@ -632,7 +631,7 @@ dependencies = [
  "bytes",
  "fastrand",
  "hex",
- "hmac",
+ "hmac 0.12.1",
  "http 0.2.12",
  "http 1.4.0",
  "http-body 0.4.6",
@@ -748,7 +747,7 @@ dependencies = [
  "crypto-bigint 0.5.5",
  "form_urlencoded",
  "hex",
- "hmac",
+ "hmac 0.12.1",
  "http 0.2.12",
  "http 1.4.0",
  "p256 0.11.1",
@@ -787,7 +786,7 @@ dependencies = [
  "http-body 0.4.6",
  "md-5 0.10.6",
  "pin-project-lite",
- "sha1",
+ "sha1 0.10.6",
  "sha2 0.10.9",
  "tracing",
 ]
@@ -2151,8 +2150,7 @@ dependencies = [
 [[package]]
 name = "file_url"
 version = "0.3.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "5e68d9ad067554ef18d79494f0e0bcddaf263f41b0126eb7a937f9e942fcbbd8"
+source = "git+https://github.com/greenroom-robotics/rattler?rev=34ec0e6fae9743f1c8dd5b2838ef2878a6685a0b#34ec0e6fae9743f1c8dd5b2838ef2878a6685a0b"
 dependencies = [
  "itertools 0.15.0",
  "percent-encoding",
@@ -2690,7 +2688,7 @@ version = "0.12.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "7b5f8eb2ad728638ea2c7d47a21db23b7b58a72ed6a38256b8a1849f15fbbdf7"
 dependencies = [
- "hmac",
+ "hmac 0.12.1",
 ]
 
 [[package]]
@@ -2700,6 +2698,15 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "6c49c37c09c17a53d937dfbb742eb3a961d65a994e6bcdcf37e7399d0cc8ab5e"
 dependencies = [
  "digest 0.10.7",
+]
+
+[[package]]
+name = "hmac"
+version = "0.13.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "6303bc9732ae41b04cb554b844a762b4115a61bfaa81e3e83050991eeb56863f"
+dependencies = [
+ "digest 0.11.3",
 ]
 
 [[package]]
@@ -3283,7 +3290,7 @@ dependencies = [
  "base64 0.22.1",
  "getrandom 0.2.16",
  "js-sys",
- "pem",
+ "pem 3.0.6",
  "serde",
  "serde_json",
  "signature 2.2.0",
@@ -3835,6 +3842,7 @@ checksum = "96c9c85ce253ff87225e7669979d877a20c98a06604ec9d6dd5f4473e08f1ae1"
 dependencies = [
  "opendal-core",
  "opendal-layer-retry",
+ "opendal-service-azblob",
  "opendal-service-fs",
  "opendal-service-s3",
 ]
@@ -3875,6 +3883,37 @@ checksum = "7b2a25a718afb81fad81cb9a0580a1cb989221fa2317f888c6a37f8dad408eb7"
 dependencies = [
  "backon",
  "log",
+ "opendal-core",
+]
+
+[[package]]
+name = "opendal-service-azblob"
+version = "0.57.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "0030644366ef5d8cbe3a4a5822bf99a4aafddc1666e9d24b44d158d9062fc76a"
+dependencies = [
+ "base64 0.22.1",
+ "bytes",
+ "http 1.4.0",
+ "log",
+ "opendal-core",
+ "opendal-service-azure-common",
+ "quick-xml 0.39.4",
+ "reqsign-azure-storage",
+ "reqsign-core",
+ "reqsign-file-read-tokio",
+ "serde",
+ "sha2 0.11.0",
+ "uuid",
+]
+
+[[package]]
+name = "opendal-service-azure-common"
+version = "0.57.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "9b489f13c42e69d69bdd72952b634356ec43a7881a20259b38b540fcecdf4051"
+dependencies = [
+ "http 1.4.0",
  "opendal-core",
 ]
 
@@ -4107,9 +4146,8 @@ checksum = "1e91099d4268b0e11973f036e885d652fb0b21fedcf69738c627f94db6a44f42"
 
 [[package]]
 name = "path_resolver"
-version = "0.2.12"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "87b79fa64c9aac78dc850c3ac23f27de50be06cb7d2a051aa4324c3d4d7bcaeb"
+version = "0.2.13"
+source = "git+https://github.com/greenroom-robotics/rattler?rev=34ec0e6fae9743f1c8dd5b2838ef2878a6685a0b#34ec0e6fae9743f1c8dd5b2838ef2878a6685a0b"
 dependencies = [
  "ahash",
  "fs-err",
@@ -4133,7 +4171,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f8ed6a7761f76e3b9f92dfb0a60a6a6477c61024b775147ff0973a02653abaf2"
 dependencies = [
  "digest 0.10.7",
- "hmac",
+ "hmac 0.12.1",
 ]
 
 [[package]]
@@ -4143,6 +4181,16 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "1d30c53c26bc5b31a98cd02d20f25a7c8567146caf63ed593a9d87b2775291be"
 dependencies = [
  "base64 0.22.1",
+ "serde_core",
+]
+
+[[package]]
+name = "pem"
+version = "4.0.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "d354a98a3d1251555de99e8fdd8afda05573c31b82f59063a7b0a29b5527f120"
+dependencies = [
+ "base64 0.23.0",
  "serde_core",
 ]
 
@@ -4778,9 +4826,8 @@ dependencies = [
 
 [[package]]
 name = "rattler"
-version = "0.48.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "61bfdcb39e1719edbb27e562d40405c1a8130eb3fff8b11b489672b642a488af"
+version = "0.48.7"
+source = "git+https://github.com/greenroom-robotics/rattler?rev=34ec0e6fae9743f1c8dd5b2838ef2878a6685a0b#34ec0e6fae9743f1c8dd5b2838ef2878a6685a0b"
 dependencies = [
  "anyhow",
  "astral-reqwest-middleware",
@@ -4824,10 +4871,27 @@ dependencies = [
 ]
 
 [[package]]
+name = "rattler_azure"
+version = "0.1.0"
+source = "git+https://github.com/greenroom-robotics/rattler?rev=34ec0e6fae9743f1c8dd5b2838ef2878a6685a0b#34ec0e6fae9743f1c8dd5b2838ef2878a6685a0b"
+dependencies = [
+ "clap",
+ "indexmap 2.14.0",
+ "jiff",
+ "opendal",
+ "percent-encoding",
+ "secrecy",
+ "serde",
+ "thiserror 2.0.18",
+ "tokio",
+ "url",
+ "which",
+]
+
+[[package]]
 name = "rattler_cache"
-version = "0.10.5"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b1ea7ff3474f2c5aceb5fe741061ad744f164e050de40dc25608c5ae0e66753c"
+version = "0.10.10"
+source = "git+https://github.com/greenroom-robotics/rattler?rev=34ec0e6fae9743f1c8dd5b2838ef2878a6685a0b#34ec0e6fae9743f1c8dd5b2838ef2878a6685a0b"
 dependencies = [
  "ahash",
  "anyhow",
@@ -4860,9 +4924,8 @@ dependencies = [
 
 [[package]]
 name = "rattler_conda_types"
-version = "0.49.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "058c739d6ea6b3f429443f9d7117022330049bdb1cdde7b46622662463bd5cc0"
+version = "0.52.1"
+source = "git+https://github.com/greenroom-robotics/rattler?rev=34ec0e6fae9743f1c8dd5b2838ef2878a6685a0b#34ec0e6fae9743f1c8dd5b2838ef2878a6685a0b"
 dependencies = [
  "ahash",
  "core-foundation 0.10.1",
@@ -4880,6 +4943,7 @@ dependencies = [
  "nom 8.0.0",
  "nom-language",
  "purl",
+ "rattler_conda_version",
  "rattler_digest",
  "rattler_macros",
  "rattler_redaction",
@@ -4902,14 +4966,26 @@ dependencies = [
 ]
 
 [[package]]
+name = "rattler_conda_version"
+version = "0.1.1"
+source = "git+https://github.com/greenroom-robotics/rattler?rev=34ec0e6fae9743f1c8dd5b2838ef2878a6685a0b#34ec0e6fae9743f1c8dd5b2838ef2878a6685a0b"
+dependencies = [
+ "itertools 0.15.0",
+ "nom 8.0.0",
+ "serde",
+ "smallvec",
+ "thiserror 2.0.18",
+]
+
+[[package]]
 name = "rattler_config"
-version = "0.7.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1fadf5267a8dc82ac7e1ba0b42c778a2e3fb02cf4827507a26456f2e2ef42cf4"
+version = "0.7.4"
+source = "git+https://github.com/greenroom-robotics/rattler?rev=34ec0e6fae9743f1c8dd5b2838ef2878a6685a0b#34ec0e6fae9743f1c8dd5b2838ef2878a6685a0b"
 dependencies = [
  "dirs",
  "fs-err",
  "indexmap 2.14.0",
+ "rattler_azure",
  "rattler_conda_types",
  "serde",
  "serde_ignored",
@@ -4923,8 +4999,7 @@ dependencies = [
 [[package]]
 name = "rattler_digest"
 version = "1.3.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "56538779701395adba456293b22fda6598b079f30c24d9a22c2bb15271bd67f3"
+source = "git+https://github.com/greenroom-robotics/rattler?rev=34ec0e6fae9743f1c8dd5b2838ef2878a6685a0b#34ec0e6fae9743f1c8dd5b2838ef2878a6685a0b"
 dependencies = [
  "blake2 0.11.0-rc.6",
  "digest 0.11.3",
@@ -4942,9 +5017,8 @@ dependencies = [
 
 [[package]]
 name = "rattler_index"
-version = "0.31.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "4cadb312b82d369b4479c01a3eaa9386fa4834c950570fa8ea6e38237e3effb8"
+version = "0.31.5"
+source = "git+https://github.com/greenroom-robotics/rattler?rev=34ec0e6fae9743f1c8dd5b2838ef2878a6685a0b#34ec0e6fae9743f1c8dd5b2838ef2878a6685a0b"
 dependencies = [
  "ahash",
  "anyhow",
@@ -4959,11 +5033,13 @@ dependencies = [
  "indicatif",
  "jiff",
  "opendal",
+ "rattler_azure",
  "rattler_conda_types",
  "rattler_config",
  "rattler_digest",
  "rattler_networking",
  "rattler_package_streaming",
+ "rattler_redaction",
  "rattler_s3",
  "reqwest",
  "retry-policies",
@@ -4982,9 +5058,8 @@ dependencies = [
 
 [[package]]
 name = "rattler_lock"
-version = "0.32.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1664ccfc4a9f5fe2b32cc59852d63dbd21f57282bcb836e4ed19414dd4d3637d"
+version = "0.32.7"
+source = "git+https://github.com/greenroom-robotics/rattler?rev=34ec0e6fae9743f1c8dd5b2838ef2878a6685a0b#34ec0e6fae9743f1c8dd5b2838ef2878a6685a0b"
 dependencies = [
  "ahash",
  "file_url",
@@ -5012,8 +5087,7 @@ dependencies = [
 [[package]]
 name = "rattler_macros"
 version = "1.1.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "bc1bde42798a908a8a2609836a062f01117b83a3fba6f8f6be3eb8c1d07bfdf2"
+source = "git+https://github.com/greenroom-robotics/rattler?rev=34ec0e6fae9743f1c8dd5b2838ef2878a6685a0b#34ec0e6fae9743f1c8dd5b2838ef2878a6685a0b"
 dependencies = [
  "quote",
  "syn 2.0.117",
@@ -5021,9 +5095,8 @@ dependencies = [
 
 [[package]]
 name = "rattler_menuinst"
-version = "0.2.73"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b6269634b94b5a9be52cf45bf9368819b33268a4372e76f9c8f9c64c9275a64a"
+version = "0.2.78"
+source = "git+https://github.com/greenroom-robotics/rattler?rev=34ec0e6fae9743f1c8dd5b2838ef2878a6685a0b#34ec0e6fae9743f1c8dd5b2838ef2878a6685a0b"
 dependencies = [
  "configparser",
  "dirs",
@@ -5052,9 +5125,8 @@ dependencies = [
 
 [[package]]
 name = "rattler_networking"
-version = "0.30.4"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e668ff6375b364d8835cf15d51179ac7366aced2a39d60877041d099a421fd06"
+version = "0.30.8"
+source = "git+https://github.com/greenroom-robotics/rattler?rev=34ec0e6fae9743f1c8dd5b2838ef2878a6685a0b#34ec0e6fae9743f1c8dd5b2838ef2878a6685a0b"
 dependencies = [
  "ambient-id",
  "anyhow",
@@ -5077,8 +5149,15 @@ dependencies = [
  "itertools 0.15.0",
  "keyring-core",
  "netrc-rs",
+ "rattler_azure",
  "rattler_config",
+ "rattler_redaction",
  "regex",
+ "reqsign-azure-storage",
+ "reqsign-command-execute-tokio",
+ "reqsign-core",
+ "reqsign-file-read-tokio",
+ "reqsign-http-send-reqwest",
  "reqwest",
  "retry-policies",
  "serde",
@@ -5093,18 +5172,17 @@ dependencies = [
 
 [[package]]
 name = "rattler_package_streaming"
-version = "0.27.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e7ca685c8e3a5ffecd6ad1e9c938753993ed05220c050a070a847ae541797a2e"
+version = "0.27.5"
+source = "git+https://github.com/greenroom-robotics/rattler?rev=34ec0e6fae9743f1c8dd5b2838ef2878a6685a0b#34ec0e6fae9743f1c8dd5b2838ef2878a6685a0b"
 dependencies = [
  "astral-reqwest-middleware",
  "astral-tokio-tar",
  "astral_async_http_range_reader",
- "astral_async_zip 0.0.20",
+ "astral_async_zip 0.0.21",
  "async-compression",
- "async-spooled-tempfile",
  "bytes",
  "bzip2 0.6.1",
+ "dunce",
  "filetime",
  "fs-err",
  "futures",
@@ -5136,8 +5214,7 @@ dependencies = [
 [[package]]
 name = "rattler_pty"
 version = "0.2.16"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c4bb899b6b8d316efe26fe43e003073ef93d230d9009a41d630e22473368c0e4"
+source = "git+https://github.com/greenroom-robotics/rattler?rev=34ec0e6fae9743f1c8dd5b2838ef2878a6685a0b#34ec0e6fae9743f1c8dd5b2838ef2878a6685a0b"
 dependencies = [
  "libc",
  "nix 0.31.3",
@@ -5147,9 +5224,8 @@ dependencies = [
 
 [[package]]
 name = "rattler_redaction"
-version = "0.2.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "068b9b88444342b01133c4eb1af90f44e3bc04463d738ac3fa3813df0096c177"
+version = "0.2.5"
+source = "git+https://github.com/greenroom-robotics/rattler?rev=34ec0e6fae9743f1c8dd5b2838ef2878a6685a0b#34ec0e6fae9743f1c8dd5b2838ef2878a6685a0b"
 dependencies = [
  "astral-reqwest-middleware",
  "reqwest",
@@ -5158,9 +5234,8 @@ dependencies = [
 
 [[package]]
 name = "rattler_s3"
-version = "0.2.10"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "26736d14feafeb56b64b820d477fde693eebebd2738afc0549a59af13c3925f3"
+version = "0.2.14"
+source = "git+https://github.com/greenroom-robotics/rattler?rev=34ec0e6fae9743f1c8dd5b2838ef2878a6685a0b#34ec0e6fae9743f1c8dd5b2838ef2878a6685a0b"
 dependencies = [
  "aws-config",
  "aws-credential-types",
@@ -5175,9 +5250,8 @@ dependencies = [
 
 [[package]]
 name = "rattler_shell"
-version = "0.27.13"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "27e6d9e4b73759112b0560c85c3fe3c9619386ed11700daa7b068d02fcd0a766"
+version = "0.27.17"
+source = "git+https://github.com/greenroom-robotics/rattler?rev=34ec0e6fae9743f1c8dd5b2838ef2878a6685a0b#34ec0e6fae9743f1c8dd5b2838ef2878a6685a0b"
 dependencies = [
  "anyhow",
  "enum_dispatch",
@@ -5196,9 +5270,8 @@ dependencies = [
 
 [[package]]
 name = "rattler_solve"
-version = "9.0.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "15139fa95d92a22fe4ba6b00ee89ed6b2375550f1c51036b202c51f771c0d29a"
+version = "9.0.7"
+source = "git+https://github.com/greenroom-robotics/rattler?rev=34ec0e6fae9743f1c8dd5b2838ef2878a6685a0b#34ec0e6fae9743f1c8dd5b2838ef2878a6685a0b"
 dependencies = [
  "hex",
  "itertools 0.15.0",
@@ -5367,36 +5440,36 @@ dependencies = [
  "serde",
  "serde_json",
  "serde_urlencoded",
- "sha1",
+ "sha1 0.10.6",
 ]
 
 [[package]]
 name = "reqsign-azure-storage"
-version = "3.0.0"
+version = "3.3.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "7a321980405d596bd34aaf95c4722a3de4128a67fd19e74a81a83aa3fdf082e6"
+checksum = "7260e6c1d89422ba62d624a32c491b561386fb364ac4bf0959c740e34b251a2e"
 dependencies = [
  "anyhow",
- "base64 0.22.1",
+ "asyncband",
+ "base64 0.23.0",
  "bytes",
  "form_urlencoded",
  "http 1.4.0",
- "jsonwebtoken",
  "log",
- "pem",
+ "pem 4.0.0",
  "percent-encoding",
  "reqsign-core",
  "rsa",
  "serde",
  "serde_json",
- "sha1",
+ "sha1 0.11.0",
 ]
 
 [[package]]
 name = "reqsign-command-execute-tokio"
-version = "3.0.0"
+version = "3.0.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "fc4e0330fd26f72c7c6c4f09ab23fdf424b2a669ffdacc562803b2b3eecc7198"
+checksum = "9065e9307989d8ce054660a63f66c33e01e8441dca92ba737d27b07581976048"
 dependencies = [
  "reqsign-core",
  "tokio",
@@ -5404,31 +5477,33 @@ dependencies = [
 
 [[package]]
 name = "reqsign-core"
-version = "3.0.0"
+version = "3.3.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b10302cf0a7d7e7352ba211fc92c3c5bebf1286153e49cc5aa87348078a8e102"
+checksum = "85fed85c436b6b920e4b36310f699a77771a91e38ae483df48447bd7d162671c"
 dependencies = [
  "anyhow",
- "base64 0.22.1",
+ "asyncband",
+ "base64 0.23.0",
  "bytes",
- "form_urlencoded",
- "futures",
  "hex",
- "hmac",
+ "hmac 0.13.0",
  "http 1.4.0",
  "jiff",
  "log",
  "percent-encoding",
- "sha1",
- "sha2 0.10.9",
+ "rsa",
+ "serde",
+ "serde_json",
+ "sha1 0.11.0",
+ "sha2 0.11.0",
  "windows-sys 0.61.2",
 ]
 
 [[package]]
 name = "reqsign-file-read-tokio"
-version = "3.0.0"
+version = "3.0.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e2d89295b3d17abea31851cc8de55d843d89c52132c864963c38d41920613dc5"
+checksum = "586a8e198057773f9616901fd723a4bc186812b9765bc0f20368661d6169d906"
 dependencies = [
  "anyhow",
  "reqsign-core",
@@ -5457,13 +5532,13 @@ dependencies = [
 
 [[package]]
 name = "reqsign-http-send-reqwest"
-version = "4.0.0"
+version = "4.0.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "46db7dfc9632310d2bdc7978c2e217187cd814842da66b3daf20a45f4e8a1e5e"
+checksum = "dfb073fe94094cd5ef21d34529aee627c2d21fdaff1882d5af461001f94ec695"
 dependencies = [
  "anyhow",
+ "asyncband",
  "bytes",
- "futures-channel",
  "http 1.4.0",
  "http-body-util",
  "reqsign-core",
@@ -5535,7 +5610,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "7743f17af12fa0b03b803ba12cd6a8d9483a587e89c69445e3909655c0b9fabb"
 dependencies = [
  "crypto-bigint 0.4.9",
- "hmac",
+ "hmac 0.12.1",
  "zeroize",
 ]
 
@@ -5545,7 +5620,7 @@ version = "0.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f8dd2a808d456c4a54e300a23e9f5a67e122c3024119acbfd73e3bf664491cb2"
 dependencies = [
- "hmac",
+ "hmac 0.12.1",
  "subtle",
 ]
 
@@ -6238,6 +6313,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "sha1"
+version = "0.11.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "aacc4cc499359472b4abe1bf11d0b12e688af9a805fa5e3016f9a386dc2d0214"
+dependencies = [
+ "cfg-if",
+ "cpufeatures 0.3.0",
+ "digest 0.11.3",
+]
+
+[[package]]
 name = "sha2"
 version = "0.10.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -6392,9 +6478,8 @@ dependencies = [
 
 [[package]]
 name = "simple_spawn_blocking"
-version = "1.1.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "55c0b0b683828aa9d4f5c0e59b0c856a12c30a65b5f1ca4292664734d76fa9c2"
+version = "1.1.1"
+source = "git+https://github.com/greenroom-robotics/rattler?rev=34ec0e6fae9743f1c8dd5b2838ef2878a6685a0b#34ec0e6fae9743f1c8dd5b2838ef2878a6685a0b"
 dependencies = [
  "tokio",
 ]

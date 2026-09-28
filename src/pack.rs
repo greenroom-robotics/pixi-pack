@@ -31,8 +31,8 @@ use rattler_lock::{
     PypiPackageData, UrlOrPath,
 };
 use rattler_networking::{
-    AuthenticationMiddleware, AuthenticationStorage, GCSMiddleware, MirrorMiddleware, S3Middleware,
-    authentication_storage, mirror_middleware::Mirror,
+    AuthenticationMiddleware, AuthenticationStorage, AzureMiddleware, GCSMiddleware,
+    MirrorMiddleware, S3Middleware, authentication_storage, mirror_middleware::Mirror,
 };
 
 use reqwest_middleware::ClientWithMiddleware;
@@ -705,17 +705,29 @@ fn reqwest_client_from_options(options: &PackOptions) -> Result<ClientWithMiddle
         MirrorMiddleware::from_map(HashMap::new())
     };
 
-    let client = reqwest_middleware::ClientBuilder::new(
-        reqwest::Client::builder()
-            .no_gzip()
-            .pool_max_idle_per_host(20)
-            .user_agent(format!("pixi-pack/{}", env!("CARGO_PKG_VERSION")))
-            .read_timeout(DEFAULT_REQWEST_TIMEOUT_SEC)
-            .build()
-            .map_err(|e| anyhow!("could not create download client: {}", e))?,
-    )
+    let base_client = reqwest::Client::builder()
+        .no_gzip()
+        .pool_max_idle_per_host(20)
+        .user_agent(format!("pixi-pack/{}", env!("CARGO_PKG_VERSION")))
+        .read_timeout(DEFAULT_REQWEST_TIMEOUT_SEC)
+        .build()
+        .map_err(|e| anyhow!("could not create download client: {}", e))?;
+
+    let azure_middleware = match &options.config {
+        Some(config) => AzureMiddleware::new(
+            base_client.clone(),
+            config
+                .azure_options
+                .iter()
+                .map(|(key, options)| (key.clone(), options.clone())),
+        ),
+        None => AzureMiddleware::anonymous(base_client.clone()),
+    };
+
+    let client = reqwest_middleware::ClientBuilder::new(base_client)
     .with(mirror_middleware)
     .with(s3_middleware)
+    .with(azure_middleware)
     .with_arc(Arc::new(AuthenticationMiddleware::from_auth_storage(
         auth_storage,
     )))
